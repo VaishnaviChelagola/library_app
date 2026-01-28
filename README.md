@@ -24,9 +24,9 @@ git clone <https://github.com/VaishnaviChelagola/library_app>
 pip install -r requirements.txt
 
 
-### 4. Run the Application
+### 3. Run the Application
 
-From the main directorylibrary-web-app (where `app.py` file is) run:
+From the main directory library-web-app (where `app.py` file is) run:
 
 python app.py
 
