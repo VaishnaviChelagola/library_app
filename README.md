@@ -24,7 +24,7 @@ git clone <https://github.com/VaishnaviChelagola/library_app>
 pip install -r requirements.txt
 
 
-### 4. Run the FastAPI server
+### 4. Run the Application
 
 From the main directorylibrary-web-app (where `app.py` file is) run:
 
