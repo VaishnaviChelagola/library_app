@@ -1,54 +1,17 @@
-from flask import (
-    Flask,
-    render_template,
-    request,
-    redirect,
-    url_for,
-    make_response,
-    g,
-)
-import jwt, datetime, sqlite3, bcrypt
-from functools import wraps
+from flask import Flask
+from auth import auth_bp
+from admin import admin_bp
+from member import member_bp
+from database import init_db
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "super-secret-key"
 
 
-@app.teardown_appcontext
-def close_db(e=None):
-    db = g.pop("db", None)
-    if db:
-        db.close()
-
-
-@app.route("/dashboard")
-def dashboard():
-    token = request.cookies.get("access_token")
-    decoded = decode_jwt(token) if token else None
-    if not decoded:
-        return redirect(url_for("login"))
-    return render_template(
-        "dashboard.html", user=decoded["user"], role=decoded["role"], token=token
-    )
-
-
-@app.route("/admin")
-@require_role("admin")
-def admin_panel(decoded):
-    return render_template("admin.html", user=decoded["user"])
-
-
-@app.route("/base")
-def base():
-    return render_template("base.html")
-
-
-@app.route("/logout")
-def logout():
-    resp = make_response(redirect(url_for("login")))
-    resp.delete_cookie("access_token")
-    return resp
-
+# Register blueprints
+app.register_blueprint(auth_bp)
+app.register_blueprint(admin_bp, url_prefix="/admin")
+app.register_blueprint(member_bp, url_prefix="/member")
 
 if __name__ == "__main__":
     init_db()

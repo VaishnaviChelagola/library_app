@@ -29,9 +29,9 @@
         <h2>Welcome {{ user }}</h2>
         <p>Role: <b>{{ role }}</b></p>
         {% if role == 'admin' %}
-        <a href="{{ url_for('admin_panel') }}">Admin Panel</a>
+        <a href="{{ url_for('admin.admin_books') }}">Manage Books</a>
         {% endif %}
-        <a href="{{ url_for('logout') }}">Logout</a>
+        <a href="{{ url_for('auth.logout') }}">Logout</a>
     </div>
 </body>
 
